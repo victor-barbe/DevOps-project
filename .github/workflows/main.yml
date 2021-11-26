@@ -9,7 +9,7 @@ on:
 jobs:
   # CI part
   test:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     # Define `working-directory` if you application is in a subfolder
     defaults:
       run:
@@ -24,8 +24,7 @@ jobs:
           - 6379:6379
     strategy:
       matrix:
-        node-version: [14.17.6]
-        #node-version: [10.x, 12.x, 14.x, 15.x]
+        node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
       - uses: actions/checkout@v2
@@ -36,5 +35,5 @@ jobs:
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
       - run: npm ci
-      - run: npm run test
+      - run: npm test
 #mettre clé heroku dans git
