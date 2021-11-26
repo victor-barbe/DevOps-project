@@ -18,7 +18,9 @@ app.use(
 );
 app.use(bodyParser.json());
 
-app.get("/", (req, res) => res.send("Hello World, this is Victor's project!"));
+app.get("/", (req, res) =>
+  res.send("Hello World, this is Victor's and pl project!")
+);
 
 app.use("/user", userRouter);
 
