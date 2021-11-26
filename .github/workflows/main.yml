@@ -34,6 +34,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
-      - run: npm ci
+      - run: yarn ci
       - run: npm test
 #mettre clé heroku dans git
