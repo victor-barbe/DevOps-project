@@ -54,7 +54,7 @@ docker run -p 12345:3000 -d devops-project
 
 Now, we can open your web browser and go to http://localhost:12345. We can see that the message `Hello World, this is Victor's and pl project!` is displayed, because it is now running in the container and not on VS-code like before !
 
-image1
+![Webpage](image/image1.png)
 
 //////Now we use the command `docker ps` to check if the container is running and to get its ID. We can also print out the logs of the container using ////////
 
@@ -77,7 +77,7 @@ docker push barbevictor/devops-project
 ```
 
 Now when we go to my repositories on the dockerhub, we can see that the image is visible.
-image2
+![Dockerhub](image/image2.png)
 
 It can now be retrived from an other computer using the command:
 
