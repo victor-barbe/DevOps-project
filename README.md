@@ -54,7 +54,7 @@ docker run -p 12345:3000 -d devops-project
 
 Now, we can open your web browser and go to http://localhost:12345. We can see that the message `Hello World, this is Victor's and pl project!` is displayed, because it is now running in the container and not on VS-code like before !
 
-[Webpage](images/image1.png)
+![Webpage](images/image1.png)
 
 //////Now we use the command `docker ps` to check if the container is running and to get its ID. We can also print out the logs of the container using ////////
 
@@ -77,7 +77,8 @@ docker push barbevictor/devops-project
 ```
 
 Now when we go to my repositories on the dockerhub, we can see that the image is visible.
-[Dockerhub](images/image2.png)
+
+![Dockerhub](images/image2.png)
 
 It can now be retrived from an other computer using the command:
 
@@ -108,10 +109,12 @@ On our docker-compose.yml file, we assigned the port 2500. Once the docker compo
 ![pageweb](images/image3.png)
 
 We can also see the new composed-container that is created on Docker, with a container for redis and one for the web part.
-[Docker](images/image4.png)
+
+![Docker](images/image4.png)
 
 In our terminal we can run the command `docker-compose ps` to see the composed apps that are running. Here, there will be `devops-project_redis_1` and `devops-project_web_1`.
-[terminal](images/image5.png)
+
+![terminal](images/image5.png)
 
 With this part, we orchestrated our container using compose. The Docker volume used in the [`Docker compose file`](docker-compose.yml`) will allow use to keep data that might be modified, the Redis container stores its data in the `/data` directory
 
