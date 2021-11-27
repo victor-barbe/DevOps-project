@@ -105,7 +105,7 @@ docker-compose up
 
 On our docker-compose.yml file, we assigned the port 2500. Once the docker compose up command as been used, if we go to http://localhost:2500 we will have the message `Hello World, this is Victor's and pl project!`.
 
-[pageweb](images/image3.png)
+![pageweb](images/image3.png)
 
 We can also see the new composed-container that is created on Docker, with a container for redis and one for the web part.
 [Docker](images/image4.png)
