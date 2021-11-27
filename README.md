@@ -95,7 +95,24 @@ This now allows somebody to run our small CRUD application using Docker, without
 
 ## Make container orchestration using Docker Compose
 
-Now, we can orchestrate our container using Docker Compose.
+Now, we can orchestrate our container using Docker Compose. To do so, we first create our `docker-compose.yml` file. This file will containt all the information needed to use docker-compose.
+
+Then in a terminal, we navigate to the `devops-project` directory where the Docker file and Docker-compose files are located and run the following command:
+
+```
+docker-compose up
+```
+
+On our docker-compose.yml file, we assigned the port 2500. Once the docker compose up command as been used, if we go to http://localhost:2500 we will have the message `Hello World, this is Victor's and pl project!`.
+![pageweb](image/image3.png)
+
+We can also see the new composed-container that is created on Docker, with a container for redis and one for the web part.
+![Docker](image/image4.png)
+
+In our terminal we can run the command `docker-compose ps` to see the composed apps that are running. Here, there will be `devops-project_redis_1` and `devops-project_web_1`.
+![terminal](image/image5.png)
+
+With this part, we orchestrated our container using compose. The Docker volume used in the `Docker-compose.yml` file will allow use to keep data that might be modified, the Redis container stores its data in the `/data` directory
 
 ## Make docker orchestration using Kubernetes
 
