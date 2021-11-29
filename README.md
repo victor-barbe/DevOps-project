@@ -44,7 +44,7 @@ To build a docker image of our application, first we create the [`Dockerfile`](D
 Then in a terminal, we navigate to the `devops-project` directory and run the following command:
 
 ```
-docker build -t devops-project.
+docker build -t devops-projects.
 ```
 
 This will build our docker image, base on the docker file in our directory. The `.` at the end of the commands tells Docker to look for the [`Dockerfile`](Dockerfile`) in the current directory.
@@ -58,7 +58,7 @@ docker images
 Now we run the container we just created with the following command:
 
 ```
-docker run -p 12345:3000 -d devops-project
+docker run -p 12345:3000 -d devops-projects
 ```
 
 -p maps a port on the local machine to a port inside the container
@@ -68,12 +68,14 @@ Now, we can open your web browser and go to http://localhost:12345. We can see t
 
 ![Webpage](images/image1.png)
 
-//////Now we use the command `docker ps` to check if the container is running and to get its ID. We can also print out the logs of the container using ////////
+Now we use the command `docker ps` to check if the container is running and to get its ID. Here the first container is the one we created right now, the other two bellow are the container created for the docker-compose part, which will take the image devops-projects we just created to create the orchestrated devops-project app.
 
-We tag our container with the following command:
+![dockerps](dockerps/image1.png)
+
+Now we tag our container with the following command:
 
 ```
-docker tag devops-project barbevictor/devops-project
+docker tag devops-projects barbevictor/devops-projects
 ```
 
 Now we have to olg in to Docker Hub from the terminal with the command:
@@ -85,7 +87,7 @@ docker login
 We can now push the docker image to Docker Hub with the following command:
 
 ```
-docker push barbevictor/devops-project
+docker push barbevictor/devops-projects
 ```
 
 Now when we go to my repositories on the dockerhub, we can see that the image is visible.
@@ -95,20 +97,20 @@ Now when we go to my repositories on the dockerhub, we can see that the image is
 It can now be retrived from an other computer using the command:
 
 ```
-docker pull barbevictor/devops-project
+docker pull barbevictor/devops-projects
 ```
 
 And it can be started using this command:
 
 ```
-docker run -p 12345:3000 -d barbevictor/devops-project
+docker run -p 12345:3000 -d barbevictor/devops-projects
 ```
 
 This now allows somebody to run our small CRUD application using Docker, without having it locally in his computer which was mandatory in the part 1 of our project.
 
 ## Make container orchestration using Docker Compose
 
-Now, we can orchestrate our container using Docker Compose. To do so, we first create our [`Docker compose file`](docker-compose.yml`). This file will containt all the information needed to use docker-compose.
+Now, we can orchestrate our container using Docker Compose. To do so, we first create our [`Docker compose file`](docker-compose.yml). This file will containt all the information needed to use docker-compose.
 
 Then in a terminal, we navigate to the `devops-project` directory where the Docker file and Docker-compose files are located and run the following command:
 
@@ -116,7 +118,11 @@ Then in a terminal, we navigate to the `devops-project` directory where the Dock
 docker-compose up
 ```
 
-On our docker-compose.yml file, we assigned the port 2500. Once the docker compose up command as been used, if we go to http://localhost:2500 we will have the message `Hello World, this is Victor's and pl project!`.
+We can see in the terminal that the containers for redis and the web are running correctly:
+
+![terminal](images/image6.png)
+
+On our [`Docker compose file`](docker-compose.yml), we assigned the port 2500. Once the docker compose up command as been used, if we go to http://localhost:2500 we will have the message `Hello World, this is Victor's and pl project!`.
 
 ![pageweb](images/image3.png)
 
@@ -128,7 +134,9 @@ In our terminal we can run the command `docker-compose ps` to see the composed a
 
 ![terminal](images/image5.png)
 
-With this part, we orchestrated our container using compose. The Docker volume used in the [`Docker compose file`](docker-compose.yml`) will allow use to keep data that might be modified, the Redis container stores its data in the `/data` directory
+With this part, we orchestrated our container using compose. The Docker volume used in the [`Docker compose file`](docker-compose.yml`) will allow use to keep data that might be modified, the Redis container stores its data in the `/data` directory.
+
+Docker compose created two containers, one for the web part and the other for redis. This way, our containerized application can communicate with redis which is also containerized.
 
 ## Make docker orchestration using Kubernetes
 
