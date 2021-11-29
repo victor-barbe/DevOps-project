@@ -70,7 +70,7 @@ Now, we can open your web browser and go to http://localhost:12345. We can see t
 
 Now we use the command `docker ps` to check if the container is running and to get its ID. Here the first container is the one we created right now, the other two bellow are the container created for the docker-compose part, which will take the image devops-projects we just created to create the orchestrated devops-project app.
 
-![dockerps](dockerps/image1.png)
+![dockerps](images/dockerps.png)
 
 Now we tag our container with the following command:
 
