@@ -134,11 +134,17 @@ In our terminal we can run the command `docker-compose ps` to see the composed a
 
 ![terminal](images/image5.png)
 
-With this part, we orchestrated our container using compose. The Docker volume used in the [`Docker compose file`](docker-compose.yml`) will allow use to keep data that might be modified, the Redis container stores its data in the `/data` directory.
+With this part, we orchestrated our container using compose. The Docker volume used in the [`Docker compose file`](docker-compose.yml) will allow use to keep data that might be modified, the Redis container stores its data in the `/data` directory.
 
 Docker compose created two containers, one for the web part and the other for redis. This way, our containerized application can communicate with redis which is also containerized.
 
 ## Make docker orchestration using Kubernetes
+
+1. Creating a deployment
+
+Now we are going to orchestrate our containers using Kubernetes. We created a [`k8s`](k8s) file containing all the needed files.
+
+2. Using persitent volume to store
 
 ## Make a service mesh using Istio
 
