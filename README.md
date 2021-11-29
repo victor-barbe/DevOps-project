@@ -34,7 +34,15 @@ Then, when pushing our project on github, git action will automatically test our
 
 2. Continuous developpement
 
-To achieve continuous developpement, we are going to use heroku.
+To achieve continuous developpement, we are going to use heroku. First we need to create an heroku account, and get the API key to connect our secret to github. Then in the [`main.yml`](main.yml) file, we need to precise our email to authentify, as well as the application name. The application name is a unique name we created on heroku using our account.
+
+Now when we make a new commit, git action will automatically test using the CI part, and then if the test are passed the application is automatically deployed as we can see on git action:
+
+![CI](images/CI.png)
+
+The application is deployed using heroku: from our heroku account, we can click the `open app` button, and we will be redirected to the https://devops-projects.herokuapp.com link. Our application can now be automatically integrated and tested, and then automatically deployed using heroku.
+
+![CD](images/CD.png)
 
 ## Configure and provision a virtual environment and run your application using the IaC approach
 
