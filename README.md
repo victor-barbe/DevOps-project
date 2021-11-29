@@ -24,6 +24,18 @@ To run the test, we have to type in the command line `npm test`. The test will t
 
 ## Apply CI/CD pipeline
 
+The goal of applying CI/CD is to allow our code to be deployed at any moment, while making the integration of new code in the project secure by testing it automatically on git actions.
+
+1. Continuous integration
+
+First to achieve continuous integration, we have to create a [`github/workflows`](github/workflows) file. This file will contain a main.yml program that will configure the paramters for the continuous inegration.
+
+Then, when pushing our project on github, git action will automatically test our code following the jobs that were defined in the [`main.yml`](main.yml).
+
+2. Continuous developpement
+
+To achieve continuous developpement, we are going to use heroku.
+
 ## Configure and provision a virtual environment and run your application using the IaC approach
 
 ## Build Docker image of your application

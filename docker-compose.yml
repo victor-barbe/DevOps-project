@@ -9,7 +9,7 @@ services:
   web:
     depends_on:
       - redis
-    image: devops-project
+    image: devops-projects
     ports:
       - "2500:3000"
     environment:
