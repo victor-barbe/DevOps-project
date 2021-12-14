@@ -28,13 +28,13 @@ The goal of applying CI/CD is to allow our code to be deployed at any moment, wh
 
 1. Continuous integration
 
-First to achieve continuous integration, we have to create a [`github/workflows`](github/workflows) file. This file will contain a main.yml program that will configure the paramters for the continuous inegration.
+First to achieve continuous integration, we have to create a [`main.yml`](.github/workflows/main.yml) file contained in the `.github/workflows` file. The main.yml fill will configure the parameters for the continuous inegration.
 
-Then, when pushing our project on github, git action will automatically test our code following the jobs that were defined in the [`main.yml`](main.yml).
+Then, when pushing our project on github, git action will automatically test our code following the jobs that were defined in the [`main.yml`](.github/workflows/main.yml).
 
 2. Continuous developpement
 
-To achieve continuous developpement, we are going to use heroku. First we need to create an heroku account, and get the API key to connect our secret to github. Then in the [`main.yml`](main.yml) file, we need to precise our email to authentify, as well as the application name. The application name is a unique name we created on heroku using our account.
+To achieve continuous developpement, we are going to use heroku. First we need to create an heroku account, and get the API key to connect our secret to github. Then in the [`main.yml`](.github/workflows/main.yml) file, we need to precise our email to authentify, as well as the application name. The application name is a unique name we created on heroku using our account.
 
 Now when we make a new commit, git action will automatically test using the CI part, and then if the test are passed the application is automatically deployed as we can see on git action:
 
@@ -63,7 +63,7 @@ Then in a terminal, we navigate to the `devops-project` directory and run the fo
 docker build -t devops-projects.
 ```
 
-This will build our docker image, base on the docker file in our directory. The `.` at the end of the commands tells Docker to look for the [`Dockerfile`](Dockerfile`) in the current directory.
+This will build our docker image, base on the docker file in our directory. The `.` at the end of the commands tells Docker to look for the [`Dockerfile`](Dockerfile) in the current directory.
 
 We can check if our Docker container appears in the local Docker images:
 
