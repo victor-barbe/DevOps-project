@@ -46,9 +46,17 @@ The application is deployed using heroku: from our heroku account, we can click 
 
 ## Configure and provision a virtual environment and run your application using the IaC approach
 
+To use the IaC approach for our project, we need to create a Virtual Machine that will be configured using Vagrant. Then, we will provide the virtual Machine using Ansible.
+
+1. Creating a VM with Vagrant
+
+To create a virtual machine on virtual Box using Vagrant, we will need a [`Vagrant file`](iac/Vagrantfile). This file will contain all the information needed to create our Virtual machine. We also need a [`Vagrant file`](iac/playbooks/run.yml).
+
+2. Provisioning with ansible
+
 ## Build Docker image of your application
 
-To build a docker image of our application, first we create the [`Dockerfile`](Dockerfile`).
+To build a docker image of our application, first we create the [`Dockerfile`](Dockerfile).
 Then in a terminal, we navigate to the `devops-project` directory and run the following command:
 
 ```
@@ -148,12 +156,22 @@ Docker compose created two containers, one for the web part and the other for re
 
 ## Make docker orchestration using Kubernetes
 
-1. Creating a deployment
-
 Now we are going to orchestrate our containers using Kubernetes. We created a [`k8s`](k8s) file containing all the needed files.
 
-2. Using persitent volume to store
+1. Creating a deployment
+
+First of all we need to create the [`deployment.yml`](k8s/deployment.yml) file, that will allow us to create the deployment for our pods. The number of replicas can be set to different values, here we will use 4 as an example.
+
+2. Creating a service
+
+The file needed to create the service can be found here [`service.yml`](k8s/service.yml).
+
+3. Creating a persitent volume
+
+To store the data in a sustainable way, we will use for this project a persitent volume. In order to use this type of volume, we need to create a [`persistentVolume.yaml`](k8s/persistentVolume.yaml) file, as well as a [`persistentVolumeClaim.yaml`](k8s/persistentVolumeClaim.yaml).
 
 ## Make a service mesh using Istio
 
 ## Implement Monitoring to your containerized application
+
+ATTENTION VERIFIER README PAS DE PORT COMMENCANT PAR 0
