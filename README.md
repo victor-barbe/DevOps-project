@@ -28,11 +28,10 @@ The goal of applying CI/CD is to allow our code to be deployed at any moment, wh
 
 1. Continuous integration
 
-First to achieve continuous integration, we have to create a [`main.yml`](.github/workflows/main.yml) file contained in the `.github/workflows` file. The main.yml fill will configure the parameters for the continuous inegration.
+First to achieve continuous integration, we have to create a [`main.yml`](.github/workflows/main.yml) file contained in the `.github/workflows` folder. The main.yml fill will configure the parameters for the continuous inegration.
 
 Then, when pushing our project on github, git action will automatically test our code following the jobs that were defined in the [`main.yml`](.github/workflows/main.yml).
-
-2. Continuous developpement
+.github/workflows/main.yml 2. Continuous developpement
 
 To achieve continuous developpement, we are going to use heroku. First we need to create an heroku account, and get the API key to connect our secret to github. Then in the [`main.yml`](.github/workflows/main.yml) file, we need to precise our email to authentify, as well as the application name. The application name is a unique name we created on heroku using our account.
 
@@ -46,7 +45,7 @@ The application is deployed using heroku: from our heroku account, we can click 
 
 ## Configure and provision a virtual environment and run your application using the IaC approach
 
-To use the IaC approach for our project, we need to create a Virtual Machine that will be configured using Vagrant. Then, we will provide the virtual Machine using Ansible.
+To use the IaC approach for our project, we need to create a Virtual Machine that will be configured using Vagrant. Then, we will provide the virtual Machine using Ansible. The files needed for IaC will be located in the [`iac`](iac) folder.
 
 1. Creating a VM with Vagrant
 
@@ -156,7 +155,32 @@ Docker compose created two containers, one for the web part and the other for re
 
 ## Make docker orchestration using Kubernetes
 
-Now we are going to orchestrate our containers using Kubernetes. We created a [`k8s`](k8s) file containing all the needed files.
+Now we are going to orchestrate our containers using Kubernetes. We created a [`k8s`](k8s) folder containing all the needed files. Then, we will use `kompose`, a conversion tool. To do so, we need to install kompose on our computer, we can do so using the command `brew install kompose` among others.
+
+Then, we need to navigate to our directory, in the root of the project were our docker-compose.yml file is located. We run the command `kompose convert`. This command will create 5 files, that we can then move to our [`k8s`](k8s) folder.
+
+For the web part, we create 2 files: the [`web-service.yaml`](k8s/web-service.yaml), and the [`web-deployment.yaml`](k8s/web-deployment.yaml).
+
+For the database part using redis, we created 2 files as well: [`redis-service.yaml`](k8s/redis-service.yaml) and [`redis-deployment.yaml`](k8s/redis-deployment.yaml).
+
+Finally, we were asked to use a persitent volume for the kubernetes orchestration. To do so, we create a [`myvolume-persistentvolumeclaim.yaml`](k8s/myvolume-persistentvolumeclaim.yaml). The volume is called myvolume refering to the name we gave it in the [`Docker compose file`](docker-compose.yml) in the former part of the project.
+
+Now to run our project, we first need to apply our configuration files. To do so, we start minikube using
+`minikube start` in a terminal. Then to apply the manifest files, we run from [`k8s`](k8s) folder the command
+
+```
+kubectl apply -f .
+```
+
+This will create our 2 deployments, and the 2 services as well as the persitent volume. Now to access the web page created by our project that displays `Hello World, this is Victor's and pl project!`, we need to use the following command :
+
+```
+minikube service web
+```
+
+We get this output in the console. 
+
+![kubernetes](images/kubernetes.png)
 
 1. Creating a deployment
 

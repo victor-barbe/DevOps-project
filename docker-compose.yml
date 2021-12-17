@@ -11,7 +11,7 @@ services:
       - redis
     image: devops-projects
     ports:
-      - "2500:3000"
+      - "6500:3000"
     environment:
       REDIS_HOST: redis
       REDIS_PORT: 6379
