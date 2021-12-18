@@ -29,7 +29,7 @@ spec:
               value: redis
             - name: REDIS_PORT
               value: "6379"
-          image: devops-projects
+          image: barbevictor/devops-projects
           name: web
           ports:
             - containerPort: 3000

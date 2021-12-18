@@ -178,24 +178,120 @@ This will create our 2 deployments, and the 2 services as well as the persitent 
 minikube service web
 ```
 
-We get this output in the console. 
+We get this output in the console.
 
-![kubernetes](images/kubernetes.png)
+![kubernetes1](images/kubernetes1.png)
 
-1. Creating a deployment
+We are redirected to our web browser on the URL generated above and get the `Hello World, this is Victor's and pl project!`.
 
-First of all we need to create the [`deployment.yml`](k8s/deployment.yml) file, that will allow us to create the deployment for our pods. The number of replicas can be set to different values, here we will use 4 as an example.
+![kubernetes2](images/kubernetes2.png)
 
-2. Creating a service
+Now to use the redis service, we use the same command:
 
-The file needed to create the service can be found here [`service.yml`](k8s/service.yml).
+```
+minikube service redis
+```
 
-3. Creating a persitent volume
+To use our persitent volume, we will need to use both our [`myvolume-persistentvolume.yaml`](k8s/myvolume-persistentvolume.yaml) and [`myvolume-persistentvolumeclaim.yaml`](k8s/myvolume-persistentvolumeclaim.yaml).
 
-To store the data in a sustainable way, we will use for this project a persitent volume. In order to use this type of volume, we need to create a [`persistentVolume.yaml`](k8s/persistentVolume.yaml) file, as well as a [`persistentVolumeClaim.yaml`](k8s/persistentVolumeClaim.yaml).
+First, we need to apply our persitent volume using the following command:
+
+```
+kubectl apply -f myvolume-persistentvolume.yaml
+```
+
+Now we can also view the information about the persitent volume using this command:
+
+```
+kubectl get pv myvolume
+```
+
+![createpv](images/createpv.png)
+
+We will get this output that tells us the PersistentVolume has a status of available, which means it has not yet been bound to a PersistentVolumeClaim.
+
+Then we need to apply our [`myvolume-persistentvolumeclaim.yaml`](k8s/myvolume-persistentvolumeclaim.yaml)
+
+```
+kubectl apply -f myvolume-persistentvolumeclaim.yaml
+```
+
+We can now see that our PersitenVolumeClaim is created
+
+```
+kubectl apply get pvc
+```
+
+After we create the PersistentVolumeClaim, the Kubernetes control plane looks for a PersistentVolume that satisfies the claim's requirements. If the control plane finds a suitable PersistentVolume with the same StorageClass, it binds the claim to the volume.
+
+Now if we look at the persitentvolumeclaim or the persistentvolume, it will have a status of Bond:
+
+```
+kubectl get pvc
+kubectl get pv
+```
+
+![createpvc](images/createpvc.png)
+
+The output shows that the PersistentVolumeClaim is bound to your PersistentVolume. So indeed we managed to create our persistentVolume here with the persistentVolumeClaim. Now we need to make the pod created by the redis deployment use this persistentVolume, so the data from our application is stored correctly. To do so, we precise the persitentvolumeclaim in the [`redis-deployment.yaml`](k8s/redis-deployment.yaml). As we linked the PVC to the PV, the pod created by the [`redis-deployment.yaml`](k8s/redis-deployment.yaml) will use our persistent volume.
+
+We need to apply the web and redis deployment, which will both create one pod (because we scaled it this way in our deployment files)
+
+```
+kubectl apply -f redis-deployment.yaml
+kubectl apply -f web-deployment.yaml
+```
+
+This will create two pods, that we can see using the command `kubectl get pods`:
+
+![pod1](images/pod1.png)
+![pod2](images/pod2.png)
+
+We now managed to orchestrate using kubernetes, and to persist our data on a persistentVolume.
 
 ## Make a service mesh using Istio
 
 ## Implement Monitoring to your containerized application
+
+## Bonus
+
+1. Swagger UI
+
+As a first bonus we decided to implement swagger UI. To do so, we first install the needed dependencies running
+
+```
+npm i express-swagger-generator --save-dev
+npm install -g @apidevtools/swagger-cli
+```
+
+Now the needed dependencies are added in the [`package.json`](package.json).
+
+Now we also need to modify both the [`src/index.js`](src/index.js). In this file we import the required const for swagger, and then we create the `const options` that will precise the correct url and the path to the route of [`src/routes/user.js`](src/routes/user.js) file.
+
+Then in the [`src/routes/user.js`](src/routes/user.js) file, we need to implement the code needed for the documentation of the API : the delete, put, post and get functions.
+
+Now when we run the project using `npm start`, we can either go to http://localhost:3000 to get the regular `Hello World, this is Victor's and pl project!`, or we can go to http://localhost:3000/api-docs to get the documentation using swagger. The documentation is composed of a part explaning the structure like this, here we can see that every user must have a username (that is used to identify each user), a firstname and a lastname.
+
+![swagger1](images/swagger1.png)
+
+Then in the upper part, there will be a section for each function of the application : create, delete, update or read a user. In this section, we can also check if every function works properly. As an example, we can try to add a new user and see if it works properly (I also checked on postman if every CRUD functionaliy works properly):
+
+![swagger2](images/swagger2.png)
+
+Here, we can see we added a new user with a username of `plgaucher`, firstname of `pierrelouis` and lastname of `gaucher`. It is added sucessfully.
+
+We can also try the other functions, and we will get a message error if we try to delete a user that doesn't exist as an example we try to delete an user with the username `joedassin` that doesn't exit in the database:
+
+![swagger3](images/swagger3.png)
+
+2.Tests
+
+For the application, we decided to make more unit test in the ![test](test) folder to make sure the CI/CD part that is comming after ensure the deployment of a fully functionnal application each time a commit is done on github. To run the tests, we have to run in the terminal `npm test`. We will get this output:
+
+![test](images/test.png)
+
+We can see that there are test for each function of the routes and controller. For each function of the controller, we will verify that the function achives its purpose, that wrong user parameters arent passed, for the create user that we arent creating an existing user and for the other functions that the user exists.
+
+For the user REST API, we verify that each function achieves its role and that users exists before getting modified, deleted or viewed.
 
 ATTENTION VERIFIER README PAS DE PORT COMMENCANT PAR 0

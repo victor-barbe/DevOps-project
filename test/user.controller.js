@@ -85,7 +85,7 @@ describe("User", () => {
         firstname: "Sergei",
         lastname: "Kudinov",
       };
-      userController.update(user, (err, result) => {
+      userController.get(user, (err, result) => {
         expect(err).to.not.be.equal(null);
         expect(result).to.be.equal(null);
         done();
@@ -142,7 +142,7 @@ describe("User", () => {
       // Create a user
       userController.create(user, () => {
         // update an existing user
-        userController.update(user, (err, result) => {
+        userController.update(user.username, user, (err, result) => {
           expect(err).to.be.equal(null);
           expect(result).to.be.equal("OK");
           done();
@@ -152,18 +152,19 @@ describe("User", () => {
 
     it("passing wrong user parameters", (done) => {
       const user = {
+        //username: "sergkudinov", //passurdutout
         firstname: "Sergei",
         lastname: "Kudinov",
       };
-      userController.update(user, (err, result) => {
+      userController.update(user.username, user, (err, result) => {
         expect(err).to.not.be.equal(null);
         expect(result).to.be.equal(null);
         done();
       });
     });
 
-    it("can not update a user when it does not exist", (done) => {
-      userController.update("invalid", (err, result) => {
+    it("can not delete a user when it does not exist", (done) => {
+      userController.get("invalid", (err, result) => {
         expect(err).to.not.be.equal(null);
         expect(result).to.be.equal(null);
         done();

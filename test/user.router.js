@@ -151,10 +151,9 @@ describe("User REST API", () => {
       };
 
       userController.create(user, () => {
-        // delete the user
         chai
           .request(app)
-          .put("/user")
+          .put("/user/sergkudinov")
           .send(user)
           .then((res) => {
             chai.expect(res).to.have.status(200);
@@ -167,15 +166,15 @@ describe("User REST API", () => {
           });
       });
     });
-    it("can not update a user when it does not exist", (done) => {
+    it("can not update a user when it does not exist here", (done) => {
       const user = {
-        username: "yes", //user we want does not exist
+        username: "sergkudinov", //user we want does not exist
         firstname: "Sergei",
         lastname: "Kudinov",
       };
       chai
         .request(app)
-        .put("/user")
+        .put("/user/:username")
         .send(user)
         .then((res) => {
           chai.expect(res).to.have.status(400);
