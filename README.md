@@ -1,4 +1,4 @@
-# DevOps project for Victor Barbe and Pierre-Louis gaucher. This README file will provide the explanations and instructions to run our project.
+# DevOps project for Victor Barbe and Pierre-Louis gaucher
 
 [![Main CI/CD](https://github.com/victor-barbe/devops-project/actions/workflows/main.yml/badge.svg)](https://github.com/victor-barbe/devops-project/actions/workflows/main.yml)
 
