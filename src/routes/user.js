@@ -82,18 +82,18 @@ userRouter
    * @swagger
    * /user/{username}:
    *   get:
-   *     summary: Get the user by id
+   *     summary: Get the user by username
    *     tags: [user]
    *     parameters:
    *       - in: path
-   *         name: id
+   *         name: username
    *         schema:
    *           type: string
    *         required: true
-   *         description: The user id
+   *         description: The user username
    *     responses:
    *       200:
-   *         description: The user description by id
+   *         description: The user description by username
    *         contens:
    *           application/json:
    *             schema:
@@ -126,15 +126,15 @@ userRouter
    * @swagger
    * /user/{username}:
    *  put:
-   *    summary: Update the user by the id
+   *    summary: Update the user by the username
    *    tags: [user]
    *    parameters:
    *      - in: path
-   *        name: id
+   *        name: username
    *        schema:
    *          type: string
    *        required: true
-   *        description: The user id
+   *        description: The user username
    *    requestBody:
    *      required: true
    *      content:
@@ -178,15 +178,15 @@ userRouter
    * @swagger
    * /user/{username}:
    *   delete:
-   *     summary: Remove the user by id
+   *     summary: Remove the user by username
    *     tags: [user]
    *     parameters:
    *       - in: path
-   *         name: id
+   *         name: username
    *         schema:
    *           type: string
    *         required: true
-   *         description: The user id
+   *         description: The user username
    *
    *     responses:
    *       200:

@@ -1,5 +1,7 @@
 # DevOps project for Victor Barbe and Pierre-Louis gaucher. This README file will provide the explanations and instructions to run our project.
 
+[![Main CI/CD](https://github.com/victor-barbe/devops-project/actions/workflows/main.yml/badge.svg)](https://github.com/victor-barbe/devops-project/actions/workflows/main.yml)
+
 ## Create a web application
 
 To create a web application, we use the application for Lab 4 which we improved.
@@ -31,7 +33,6 @@ The goal of applying CI/CD is to allow our code to be deployed at any moment, wh
 First to achieve continuous integration, we have to create a [`main.yml`](.github/workflows/main.yml) file contained in the `.github/workflows` folder. The main.yml fill will configure the parameters for the continuous inegration.
 
 Then, when pushing our project on github, git action will automatically test our code following the jobs that were defined in the [`main.yml`](.github/workflows/main.yml).
-.github/workflows/main.yml
 
 2. Continuous developpement
 
@@ -370,6 +371,22 @@ Here, we can see we added a new user with a username of `plgaucher`, firstname o
 We can also try the other functions, and we will get a message error if we try to delete a user that doesn't exist as an example we try to delete an user with the username `joedassin` that doesn't exit in the database:
 
 ![swagger3](images/swagger3.png)
+
+Now we can get an user that exists in the database:
+
+![getuser](images/getuser.png)
+
+We can update a user that exists in the database, changing his first name as an example:
+
+![putuser1](images/putuser1.png)
+
+![putuser2](images/putuser2.png)
+
+Finally, we can delete a user:
+
+![deleteuser1](images/delete1.png)
+
+![deleteuser2](images/delete2.png)
 
 2. Tests
 
