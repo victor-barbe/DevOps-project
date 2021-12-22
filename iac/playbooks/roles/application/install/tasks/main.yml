@@ -11,3 +11,7 @@
     state: started
     enabled: yes
 #install node and npm
+
+- name: install node and npm
+  yum:
+    name: nodejs
