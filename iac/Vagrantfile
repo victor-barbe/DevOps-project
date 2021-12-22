@@ -39,4 +39,6 @@ Vagrant.configure("2") do |config|
     end
   
   config.vm.provision "file", source: "../src", destination: "$HOME/devopsproject"
+  #config.vm.provision "file", source: "../package.json", destination: "$HOME/devopsproject"
+
 end

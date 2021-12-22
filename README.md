@@ -6,13 +6,13 @@ To create a web application, we use the application for Lab 4 which we improved.
 
 1. CRUD user functionality
 
-We added the update and delete functionalities, which were not available at the start. They allow to modify the lastname and firstname of a user, and delete a user.
+We added the update and delete functionalities, which were not available at the start. They allow to modify the lastname and firstname of a user, and delete a user completely from the redis database.
 
 2. Storage
 
 The application uses Redis to store the new users we can create, read, update or delete thanks to the CRUD user functionality.
 
-3. Continuous-testing
+3. Testing
 
 The application was also supposed to use test. We implemented the missing tests for the update and delete functionalities, as well as the missing parts for the configuration.
 
@@ -20,7 +20,7 @@ The application was also supposed to use test. We implemented the missing tests 
 
 To use this application, we first have to install npm with `npm install`. Then to run it, we need to type `npm start` in the command line, and the web server will be available at http://localhost:3000 .
 
-To run the test, we have to type in the command line `npm test`. The test will then confirm in the terminal that unit, API, configuration and connection are correct.
+To run the test, we have to type in the command line `npm test`. The test will then confirm in the terminal that the database, API, configuration and connection are correct.
 
 ## Apply CI/CD pipeline
 
@@ -31,7 +31,9 @@ The goal of applying CI/CD is to allow our code to be deployed at any moment, wh
 First to achieve continuous integration, we have to create a [`main.yml`](.github/workflows/main.yml) file contained in the `.github/workflows` folder. The main.yml fill will configure the parameters for the continuous inegration.
 
 Then, when pushing our project on github, git action will automatically test our code following the jobs that were defined in the [`main.yml`](.github/workflows/main.yml).
-.github/workflows/main.yml 2. Continuous developpement
+.github/workflows/main.yml
+
+2. Continuous developpement
 
 To achieve continuous developpement, we are going to use heroku. First we need to create an heroku account, and get the API key to connect our secret to github. Then in the [`main.yml`](.github/workflows/main.yml) file, we need to precise our email to authentify, as well as the application name. The application name is a unique name we created on heroku using our account.
 
@@ -120,6 +122,8 @@ redis-cli
 ping
 ```
 
+![ping](images/ping.png)
+
 If redis is installed properly, it will answer with `PONG`.
 
 Now to see if we have NODE and npm, we can type:
@@ -128,6 +132,8 @@ Now to see if we have NODE and npm, we can type:
 node -v
 npm -v
 ```
+
+![nodenpm](images/nodenpm.png)
 
 We can see here that both are installed correctly. Now we can go to our project and run the commands:
 
@@ -162,11 +168,11 @@ docker run -p 12345:3000 -d devops-projects
 -p maps a port on the local machine to a port inside the container
 -d makes the container run in the background
 
-Now, we can open your web browser and go to http://localhost:12345. We can see that the message `Hello World, this is Victor's and pl project!` is displayed, because it is now running in the container and not on VS-code like before !
+Now, we can open your web browser and go to http://localhost:12345. We can see that the message `Hello World, this is Victor's and pl project!` is displayed, because it is now running in the container and not our computer like before !
 
 ![Webpage](images/image1.png)
 
-Now we use the command `docker ps` to check if the container is running and to get its ID. Here the first container is the one we created right now, the other two bellow are the container created for the docker-compose part, which will take the image devops-projects we just created to create the orchestrated devops-project app.
+Now we use the command `docker ps` to check if the container is running and to get its ID. Here the first container is the one we created right now, the other two bellow are the container created for the docker-compose part, which will take the image devops-projects we just created to create the orchestrated devops-projects app.
 
 ![dockerps](images/dockerps.png)
 
@@ -334,8 +340,6 @@ We now managed to orchestrate using kubernetes, and to persist our data on a per
 
 ## Make a service mesh using Istio
 
-## Implement Monitoring to your containerized application
-
 ## Bonus
 
 1. Swagger UI
@@ -367,14 +371,12 @@ We can also try the other functions, and we will get a message error if we try t
 
 ![swagger3](images/swagger3.png)
 
-2.Tests
+2. Tests
 
-For the application, we decided to make more unit test in the ![test](test) folder to make sure the CI/CD part that is comming after ensure the deployment of a fully functionnal application each time a commit is done on github. To run the tests, we have to run in the terminal `npm test`. We will get this output:
+For the application, we decided to make more unit test in the [test](test) folder to make sure the CI/CD part that is comming after ensure the deployment of a fully functionnal application each time a commit is done on github. To run the tests, we have to run in the terminal `npm test`. We will get this output:
 
 ![test](images/test.png)
 
 We can see that there are test for each function of the routes and controller. For each function of the controller, we will verify that the function achives its purpose, that wrong user parameters arent passed, for the create user that we arent creating an existing user and for the other functions that the user exists.
 
 For the user REST API, we verify that each function achieves its role and that users exists before getting modified, deleted or viewed.
-
-ATTENTION VERIFIER README PAS DE PORT COMMENCANT PAR 0
