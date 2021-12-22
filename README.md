@@ -107,7 +107,34 @@ Then we have the [`iac/playbooks/run.yml`](iac/playbooks/run.yml) file, that wil
 
 The instructions to check the installation are in the [`iac/playbooks/roles/application/healthchecks/tasks/main.yml`](iac/playbooks/roles/application/healthchecks/tasks/main.yml) file.
 
-Now that we have installed NodeJs/npm and redis, the application is fully functionnal from our virtualmachine. We can go inside our VM, and run the commands `npm install` and `npm start`.
+To verify we have installed redis properly in our VM we can enter the VM using
+
+```
+vagrant ssh centos_server
+```
+
+Now inside our vm we can type
+
+```
+redis-cli
+ping
+```
+
+If redis is installed properly, it will answer with `PONG`.
+
+Now to see if we have NODE and npm, we can type:
+
+```
+node -v
+npm -v
+```
+
+We can see here that both are installed correctly. Now we can go to our project and run the commands:
+
+```
+npm install
+npm start
+```
 
 ## Build Docker image of your application
 

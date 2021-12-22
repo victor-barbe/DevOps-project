@@ -2,9 +2,13 @@ name: Main CI/CD
 
 on:
   push:
-    branches: [CI-CD-dev]
+    branches:
+      - CI-CD-dev
+      - main
   pull_request:
-    branches: [CI-CD-dev]
+    branches:
+      - CI-CD-dev
+      - main
 
 jobs:
   # CI part
