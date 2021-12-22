@@ -1,0 +1,13 @@
+---
+#install and enable redis
+- name: Install redis
+  yum:
+    name: redis
+    state: latest
+
+- name: Enable and start redis
+  service:
+    name: redis
+    state: started
+    enabled: yes
+#install node and npm

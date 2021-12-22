@@ -49,10 +49,6 @@ To use the IaC approach for our project, we need to create a Virtual Machine tha
 
 1. Creating a VM with Vagrant
 
-To create a virtual machine on virtual Box using Vagrant, we will need a [`Vagrant file`](iac/Vagrantfile). This file will contain all the information needed to create our Virtual machine. We also need a [`Vagrant file`](iac/playbooks/run.yml).
-
-2. Provisioning with ansible
-
 ## Build Docker image of your application
 
 To build a docker image of our application, first we create the [`Dockerfile`](Dockerfile).
