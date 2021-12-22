@@ -49,6 +49,66 @@ To use the IaC approach for our project, we need to create a Virtual Machine tha
 
 1. Creating a VM with Vagrant
 
+To create a virtual machine on virtual Box using Vagrant, we will need a [`Vagrant file`](iac/Vagrantfile). This file will contain all the information needed to create our Virtual machine. We also need a [`run.yml`](iac/playbooks/run.yml), which is empty for the first initialization of our VM. Then when in the [`iac`](iac) folder we first need to run the command:
+
+```
+vagrant box add centos/7
+```
+
+This command will output this, and we choose 3:
+
+```
+==> box: Loading metadata for box 'centos/7'
+   box: URL: https://vagrantcloud.com/centos/7
+This box can work with multiple providers! The providers that it can work with are listed below. Please review the list and   choose
+the provider you will be working with.
+
+1) hyperv
+2) libvirt
+3) virtualbox
+4) vmware_desktop
+
+Enter your choice: 3
+```
+
+Now we installed centos/7, we can run this command in the [`iac`](iac) folder:
+
+```
+vagrant up
+```
+
+Now we can see that the VM is created and running in virtualBox.
+
+![vagrant1](images/vagrant1.png)
+
+This will initialize our virtual machine, and provide it with ansible as we precised it in the [`Vagrant file`](iac/Vagrantfile).
+
+We can now see on virtual box that we have centos/7 and the virtual machine for our project, which is called `centos.server.devops` as defined in the [`Vagrant file`](iac/Vagrantfile).
+
+In the vagrant configuration, there is the code line `config.vm.provision "file", source: "../src", destination: "$HOME/devopsproject"`. This will copy our application (the first path) inside our VM in the second path.
+
+We can try to got inside our VM using the following command that will connect us using SSH
+
+```
+vagrant ssh centos_server
+```
+
+Once we are in our VM, we can use `ls` and `cd` to naviguate in the repositories. Since we copied our project in `$HOME/devopsproject`, we we enter our vm we can access our project like this:
+
+![vagrant2](images/vagrant2.png)
+
+Here, we can see the different .js files that were used in our project. Indeed, our project as been copied to the VM.
+
+2. Playbooks and provisioning
+
+Now, we need to add redis and npm to our VM to make our project work correctly. To do so, we will use what is inside the playbooks folder. In the [`Vagrant file`](iac/Vagrantfile) we use anisble to provision our VM. This will call our playbooks and use the tag `install`. This means that what is described in our playbooks will be installed.
+
+Then we have the [`iac/playbooks/run.yml`](iac/playbooks/run.yml) file, that will call for the healthchecks and the install that are inside our roles for our application. We could also have created two roles, one to install and check NPM/nodeJS and the other to install redis, but we decided to create a single role called application. Then, the instructions to install redis and nodeJS/npm are located in the [`iac/playbooks/roles/application/install/tasks/main.yml`](iac/playbooks/roles/application/install/tasks/main.yml) file.
+
+The instructions to check the installation are in the [`iac/playbooks/roles/application/healthchecks/tasks/main.yml`](iac/playbooks/roles/application/healthchecks/tasks/main.yml) file.
+
+Now that we have installed NodeJs/npm and redis, the application is fully functionnal from our virtualmachine. We can go inside our VM, and run the commands `npm install` and `npm start`.
+
 ## Build Docker image of your application
 
 To build a docker image of our application, first we create the [`Dockerfile`](Dockerfile).
